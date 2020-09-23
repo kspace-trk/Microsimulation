@@ -11,7 +11,7 @@ HarmonyMemory::HarmonyMemory()
 	iteNum = 1;
 	best = 0;
 	worst = 0;
-	mem = new Harmony *[HM_SIZE];
+	mem = new Harmony *[HM_SIZE]; //HM_SIZE = 100
 	for (i = 0; i < HM_SIZE; i++)
 	{
 		mem[i] = new Harmony();
@@ -67,9 +67,9 @@ void HarmonyMemory::makeHarmony()
 	{
 		if (rand() < R_CONSIDER * RAND_MAX)
 		{
-			k = rand() % HM_SIZE;
+			k = rand() % HM_SIZE; //k = 0~99
 			if (rand() < R_ADJUST * RAND_MAX)
-				newHarmony->solution[i] = (mem[k]->solution[i] + 1) % 2;
+				newHarmony->solution[i] = (mem[k]->solution[i] + 1) % 2; //35%(R_ADJUST * 100)の確率でif文にかかる
 			else
 				newHarmony->solution[i] = mem[k]->solution[i];
 		}

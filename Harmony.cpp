@@ -28,7 +28,7 @@ Harmony::Harmony()
 		{
 			r = (double)rand() / RAND_MAX;
 			if (r > 0.1)
-				solution[i * para->zoneHNum + j] = 0;
+				solution[i * para->zoneHNum + j] = 0; //90%で0を代入
 			else
 				solution[i * para->zoneHNum + j] = 1;
 			housePop[i][j] = para->initialZonePopNum;
