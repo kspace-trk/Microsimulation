@@ -36,7 +36,7 @@ Harmony::Harmony()
 		}
 	}
 	for (i = 0; i < solutionSubLen; i++)
-		solution[solutionLen - solutionSubLen + i] = rand() % 2;
+		solution[solutionLen - solutionSubLen + i] = rand() % 2; //solution[82~86]に 0or1
 	subsidy = 0.0;
 	moveNum = 0;
 	facilityNum = 0;
