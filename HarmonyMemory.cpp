@@ -7,7 +7,6 @@ HarmonyMemory::HarmonyMemory()
 {
 	int i, best, worst;
 	Harmony *tmp;
-
 	iteNum = 1;
 	best = 0;
 	worst = 0;

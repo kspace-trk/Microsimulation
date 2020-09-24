@@ -14,25 +14,25 @@ Harmony::Harmony()
 	int i, j;
 	double r;
 
-	solution = new int[solutionLen];
-	housePop = new int *[para->zoneVNum];
-	facilityPop = new double *[para->zoneVNum];
+	solution = new int[solutionLen];			//solutionの配列数宣言
+	housePop = new int *[para->zoneVNum];		//housePopの配列数宣言
+	facilityPop = new double *[para->zoneVNum]; //facilityPopの配列数の宣言
 	for (i = 0; i < solutionLen; i++)
-		solution[i] = -1;
+		solution[i] = -1; //中に全部-1を入れる
 
 	for (i = 0; i < para->zoneVNum; i++)
 	{
-		housePop[i] = new int[para->zoneHNum];
-		facilityPop[i] = new double[para->zoneHNum];
-		for (j = 0; j < para->zoneHNum; j++)
+		housePop[i] = new int[para->zoneHNum];		 //housePop配列を2次元配列にしてる
+		facilityPop[i] = new double[para->zoneHNum]; //facilityPop配列を2次元配列にしてる
+		for (j = 0; j < para->zoneHNum; j++)		 //9回回る
 		{
-			r = (double)rand() / RAND_MAX;
+			r = (double)rand() / RAND_MAX; //0~1までの少数型の乱数
 			if (r > 0.1)
 				solution[i * para->zoneHNum + j] = 0; //90%で0を代入
 			else
-				solution[i * para->zoneHNum + j] = 1;
-			housePop[i][j] = para->initialZonePopNum;
-			facilityPop[i][j] = 0.0;
+				solution[i * para->zoneHNum + j] = 1; //10%で1を代入
+			housePop[i][j] = para->initialZonePopNum; //housePop[0~9][0~9]の全部に20(初期ゾーン人口)を代入
+			facilityPop[i][j] = 0.0;				  //facilityPop[0~9][0~9]の全部に0.0を代入
 		}
 	}
 	for (i = 0; i < solutionSubLen; i++)

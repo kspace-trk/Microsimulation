@@ -5,17 +5,16 @@
 class HarmonyMemory
 {
 public:
-	static Para* para;
-	
+	static Para *para;
+
 	HarmonyMemory();
 	~HarmonyMemory();
 
 	void makeHarmony();
 
 	int iteNum;
-	Harmony** mem;
+	Harmony **mem;
 
 private:
-	Harmony* newHarmony;
+	Harmony *newHarmony;
 };
-
