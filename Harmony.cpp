@@ -56,19 +56,47 @@ Harmony::~Harmony()
 	delete[] housePop;
 	delete[] facilityPop;
 }
-
-// つくりかえ
-void Harmony::renewal()
+// 適応度を算出する
+void Harmony::evaluate()
 {
 	int i;
 
-	for (i = 0; i < para->zoneVNum; i++)
+	fitness = 0.0; //適応度(ソート基準になる)
+	for (i = 0; i < solutionLen; i++)
 	{
-		for (int j = 0; j < para->zoneHNum; j++)
-			solution[i * para->zoneHNum + j] = rand() % 2;
+		fitness += (solution[i] * 2 - 1) * sqrt((double)i + 1);
+	}
+	fitness = fabs(fitness);
+}
+// p1とp2から一点交叉で作った子にする
+// p1: 親個体1
+// p2: 親個体2
+void Harmony::crossover(Harmony *p1, Harmony *p2)
+{
+	int point, i;
+
+	point = rand() % (solutionLen - 1);
+	for (i = 0; i <= point; i++)
+	{
+		solution[i] = p1->solution[i];
 	}
 	for (; i < solutionLen; i++)
-		solution[i] = rand() % 2;
+	{
+		solution[i] = p2->solution[i];
+	}
+}
+// 突然変異を起こす
+void Harmony::mutate()
+{
+	int i;
+
+	for (i = 0; i < solutionLen; i++)
+	{
+		if (RAND_01 < MUTATE_PROB)
+		{
+			solution[i] = 1 - solution[i];
+		}
+	}
 }
 
 // 評価

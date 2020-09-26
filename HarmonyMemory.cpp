@@ -17,7 +17,6 @@ HarmonyMemory::HarmonyMemory()
 		mem[i]->calcFit();
 		while (mem[i]->fitness == DBL_MAX)
 		{
-			mem[i]->renewal();
 			mem[i]->calcFit();
 		}
 		if (mem[best]->fitness > mem[i]->fitness)
@@ -51,73 +50,123 @@ HarmonyMemory::~HarmonyMemory()
 	delete[] mem;
 	delete newHarmony;
 }
+// すべての個体を評価して，適応度順に並び替える
+void HarmonyMemory::evaluate()
+{
+	int i;
+
+	for (i = 0; i < HM_SIZE; i++)
+	{
+		mem[i]->evaluate();
+	}
+	sort(0, HM_SIZE - 1);
+}
+// mem[lb]〜mem[ub]をクイックソートで並び替える
+// lb: 並び替えの対象要素の添え字の下限
+// ub: 並び替えの対象要素の添え字の上限
+void HarmonyMemory::sort(int lb, int ub)
+{
+	int i, j, k;
+	double pivot;
+	Harmony *tmp;
+
+	if (lb < ub)
+	{
+		k = (lb + ub) / 2;
+		pivot = mem[k]->fitness;
+		i = lb;
+		j = ub;
+		do
+		{
+			while (mem[i]->fitness < pivot)
+			{
+				i++;
+			}
+			while (mem[j]->fitness > pivot)
+			{
+				j--;
+			}
+			if (i <= j)
+			{
+				tmp = mem[i];
+				mem[i] = mem[j];
+				mem[j] = tmp;
+				i++;
+				j--;
+			}
+		} while (i <= j);
+		sort(lb, j);
+		sort(i, ub);
+	}
+}
 
 // 新しいハーモニーを生成
 void HarmonyMemory::makeHarmony()
 {
-	int i, k, worst;
-	double r;
-	Harmony *tmp;
+	int i, j, p1, p2;
+	Harmony **tmp;
 
-	iteNum++;
+	// ルーレット選択のための処理
+	/*
+   denom = 0.0;
+   for(i = 0; i < POP_SIZE; i++) {
+      trFit[i] = (mem[POP_SIZE - 1]->fitness - mem[i]->fitness)
+                 / (mem[POP_SIZE - 1]->fitness - mem[0]->fitness);
+      denom += trFit[i];
+   }
+   */
 
-	// 新解候補を生成
-	for (i = 0; i < Harmony::solutionLen; i++)
+	// エリート保存戦略で子個体を作る
+	for (i = 0; i < ELITE; i++)
 	{
-		if (rand() < R_CONSIDER * RAND_MAX)
+		for (j = 0; j < Harmony::solutionLen; j++)
 		{
-			k = rand() % HM_SIZE; //k = 0~99
-			if (rand() < R_ADJUST * RAND_MAX)
-				newHarmony->solution[i] = (mem[k]->solution[i] + 1) % 2; //35%(R_ADJUST * 100)の確率でif文にかかる
-			else
-				newHarmony->solution[i] = mem[k]->solution[i];
-		}
-		else
-		{
-			if (i < Harmony::solutionLen - Harmony::solutionSubLen)
-			{
-				r = (double)rand() / RAND_MAX;
-				if (r > 0.1)
-					newHarmony->solution[i] = 0;
-				else
-					newHarmony->solution[i] = 1;
-			}
-			else
-			{
-				newHarmony->solution[i] = rand() % 2;
-			}
+			nextMem[i]->solution[j] = mem[i]->solution[j];
 		}
 	}
+
+	// 親を選択し交叉する
+	for (; i < HM_SIZE; i++)
+	{
+		p1 = select();
+		p2 = select();
+		nextMem[i]->crossover(mem[p1], mem[p2]);
+	}
+
+	// 突然変異を起こす
+	for (i = 1; i < HM_SIZE; i++)
+	{
+		nextMem[i]->mutate();
+	}
+
+	// 次世代を現世代に変更する
+	tmp = mem;
+	mem = nextMem;
+	nextMem = tmp; //memとnextMemでいれかえ
+
+	// 評価する
+	evaluate();
 
 	// 新解候補を評価
 	newHarmony->calcFit();
 
 	// 最悪解候補よりよかったら置き換える
-	if (mem[HM_SIZE - 1]->fitness > newHarmony->fitness)
+}
+// 順位に基づくランキング選択で親個体を1つ選択する
+// 戻り値: 選択した親個体の添え字
+int HarmonyMemory::select()
+{
+	int num, denom, r;
+
+	denom = HM_SIZE * (HM_SIZE + 1) / 2; //50万
+	r = ((rand() << 16) + (rand() << 1) + (rand() % 2)) % denom + 1;
+	for (num = HM_SIZE; 0 < num; num--)
 	{
-		worst = 1;
-		for (i = 2; i < HM_SIZE - 1; i++)
+		if (r <= num)
 		{
-			if (mem[worst]->fitness < mem[i]->fitness)
-				worst = i;
+			break;
 		}
-		tmp = mem[HM_SIZE - 1];
-		if (mem[0]->fitness > newHarmony->fitness)
-		{ // 最良解候補より良い
-			mem[HM_SIZE - 1] = mem[worst];
-			mem[worst] = mem[0];
-			mem[0] = newHarmony;
-		}
-		else if (mem[worst]->fitness < newHarmony->fitness)
-		{ // 第2最悪解候補より悪い
-			mem[HM_SIZE - 1] = newHarmony;
-		}
-		else
-		{ // 最良でも最悪でもない
-			mem[HM_SIZE - 1] = mem[worst];
-			mem[worst] = newHarmony;
-		}
-		newHarmony = tmp;
+		r -= num;
 	}
-	//printf("%f\n", newHarmony->fitness);
+	return HM_SIZE - num;
 }

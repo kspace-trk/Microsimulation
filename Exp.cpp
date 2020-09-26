@@ -30,6 +30,7 @@ void Exp::search()
 	harmonyMemory = new HarmonyMemory();
 	while (harmonyMemory->iteNum < ITERATION_NUM)
 	{
+		printf("1");
 		harmonyMemory->makeHarmony();
 		printf("%f mem[0]\n", harmonyMemory->mem[0]->fitness);
 	}
