@@ -14,6 +14,13 @@ HarmonyMemory::HarmonyMemory()
 	{
 		mem[i] = new Harmony();
 		nextMem[i] = new Harmony();
+		mem[i]->calcFit();
+		nextMem[i]->calcFit();
+		while (mem[i]->fitness == DBL_MAX)
+		{
+			mem[i]->calcFit();
+			nextMem[i]->calcFit();
+		}
 	}
 	evaluate(); // 適応度を算出する
 
