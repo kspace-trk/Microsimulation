@@ -31,6 +31,6 @@ void Exp::search()
 	while (harmonyMemory->iteNum < ITERATION_NUM)
 	{
 		harmonyMemory->makeHarmony();
-		printf("%f mem[0]\n", harmonyMemory->mem[0]->fitness);
+		printf("第%d世代：fitness=%f\n", harmonyMemory->iteNum, harmonyMemory->mem[0]->fitness);
 	}
 }
