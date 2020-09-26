@@ -105,6 +105,7 @@ void HarmonyMemory::makeHarmony()
 {
 	int i, j, p1, p2;
 	Harmony **tmp;
+	iteNum++;
 
 	// ルーレット選択のための処理
 	/*

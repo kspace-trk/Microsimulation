@@ -5,6 +5,7 @@
 
 int main()
 {
+	printf("aa");
 	Exp *exp;
 
 	// 乱数のタネ設定
