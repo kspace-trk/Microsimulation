@@ -5,39 +5,16 @@ Para *HarmonyMemory::para = NULL;
 // コンストラクタ
 HarmonyMemory::HarmonyMemory()
 {
-	int i, best, worst;
-	Harmony *tmp;
-	iteNum = 1;
-	best = 0;
-	worst = 0;
-	mem = new Harmony *[HM_SIZE]; //HM_SIZE = 100
+	int i;
+
+	mem = new Harmony *[HM_SIZE];	  //mem[100]宣言
+	nextMem = new Harmony *[HM_SIZE]; //nextMem[100]宣言
 	for (i = 0; i < HM_SIZE; i++)
 	{
 		mem[i] = new Harmony();
-		mem[i]->calcFit();
-		while (mem[i]->fitness == DBL_MAX)
-		{
-			mem[i]->calcFit();
-		}
-		if (mem[best]->fitness > mem[i]->fitness)
-			best = i;
-		if (mem[worst]->fitness < mem[i]->fitness)
-			worst = i;
+		nextMem[i] = new Harmony();
 	}
-	if (best != 0)
-	{
-		tmp = mem[0];
-		mem[0] = mem[best];
-		mem[best] = tmp;
-	}
-	if (worst == 0)
-		worst = best;
-	if (worst != HM_SIZE - 1)
-	{
-		tmp = mem[HM_SIZE - 1];
-		mem[HM_SIZE - 1] = mem[worst];
-		mem[worst] = tmp;
-	}
+	evaluate(); // 適応度を算出する
 
 	newHarmony = new Harmony();
 }
@@ -45,10 +22,15 @@ HarmonyMemory::HarmonyMemory()
 // デストラクタ
 HarmonyMemory::~HarmonyMemory()
 {
-	for (int i = 0; i < HM_SIZE; i++)
+	int i;
+
+	for (i = 0; i < HM_SIZE; i++)
+	{
 		delete mem[i];
+		delete nextMem[i];
+	}
 	delete[] mem;
-	delete newHarmony;
+	delete[] nextMem;
 }
 // すべての個体を評価して，適応度順に並び替える
 void HarmonyMemory::evaluate()
@@ -145,13 +127,11 @@ void HarmonyMemory::makeHarmony()
 	mem = nextMem;
 	nextMem = tmp; //memとnextMemでいれかえ
 
-	// 評価する
-	evaluate();
-
 	// 新解候補を評価
 	newHarmony->calcFit();
 
-	// 最悪解候補よりよかったら置き換える
+	// 評価する
+	evaluate();
 }
 // 順位に基づくランキング選択で親個体を1つ選択する
 // 戻り値: 選択した親個体の添え字

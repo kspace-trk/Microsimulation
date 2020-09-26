@@ -3,7 +3,7 @@
 class Para;
 #include "Para.h"
 
-#define ITERATION_NUM 100000
+#define ITERATION_NUM 100
 #define HM_SIZE 100
 #define R_CONSIDER 0.85
 #define R_ADJUST 0.35
