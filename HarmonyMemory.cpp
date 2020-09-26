@@ -119,4 +119,5 @@ void HarmonyMemory::makeHarmony()
 		}
 		newHarmony = tmp;
 	}
+	//printf("%f\n", newHarmony->fitness);
 }
