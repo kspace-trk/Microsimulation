@@ -6,6 +6,7 @@ Para *HarmonyMemory::para = NULL;
 HarmonyMemory::HarmonyMemory()
 {
 	int i;
+	iteNum = 1;
 
 	mem = new Harmony *[HM_SIZE];	  //mem[100]宣言
 	nextMem = new Harmony *[HM_SIZE]; //nextMem[100]宣言
