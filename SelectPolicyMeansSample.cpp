@@ -12,6 +12,6 @@ int main()
 
 	exp = new Exp();
 	exp->search();
-	exp->pop->mem[0]->writeResult();
+	exp->pop->ind[0]->writeResult();
 	delete exp;
 }

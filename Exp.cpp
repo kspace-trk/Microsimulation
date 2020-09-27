@@ -30,7 +30,7 @@ void Exp::search()
 	pop = new Population();
 	while (pop->iteNum < ITERATION_NUM)
 	{
-		pop->makeHarmony();
-		printf("第%d世代：fitness=%f\n", pop->iteNum, pop->mem[0]->fitness);
+		pop->alternate();
+		printf("第%d世代：fitness=%f\n", pop->iteNum, pop->ind[0]->fitness);
 	}
 }

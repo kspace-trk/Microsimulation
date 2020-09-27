@@ -8,14 +8,14 @@ Population::Population()
 	int i;
 	iteNum = 1;
 
-	mem = new Individual *[HM_SIZE];	 //mem[100]宣言
-	nextMem = new Individual *[HM_SIZE]; //nextMem[100]宣言
+	ind = new Individual *[HM_SIZE];	 //ind[100]宣言
+	nextInd = new Individual *[HM_SIZE]; //nextInd[100]宣言
 	for (i = 0; i < HM_SIZE; i++)
 	{
-		mem[i] = new Individual();
-		nextMem[i] = new Individual();
-		mem[i]->calcFit();
-		nextMem[i]->calcFit();
+		ind[i] = new Individual();
+		nextInd[i] = new Individual();
+		ind[i]->calcFit();
+		nextInd[i]->calcFit();
 	}
 	evaluate(); // 適応度を算出する
 }
@@ -27,11 +27,11 @@ Population::~Population()
 
 	for (i = 0; i < HM_SIZE; i++)
 	{
-		delete mem[i];
-		delete nextMem[i];
+		delete ind[i];
+		delete nextInd[i];
 	}
-	delete[] mem;
-	delete[] nextMem;
+	delete[] ind;
+	delete[] nextInd;
 }
 // すべての個体を評価して，適応度順に並び替える
 void Population::evaluate()
@@ -40,11 +40,11 @@ void Population::evaluate()
 
 	for (i = 0; i < HM_SIZE; i++)
 	{
-		mem[i]->calcFit();
+		ind[i]->calcFit();
 	}
 	sort(0, HM_SIZE - 1);
 }
-// mem[lb]〜mem[ub]をクイックソートで並び替える
+// ind[lb]〜ind[ub]をクイックソートで並び替える
 // lb: 並び替えの対象要素の添え字の下限
 // ub: 並び替えの対象要素の添え字の上限
 void Population::sort(int lb, int ub)
@@ -56,24 +56,24 @@ void Population::sort(int lb, int ub)
 	if (lb < ub)
 	{
 		k = (lb + ub) / 2;
-		pivot = mem[k]->fitness;
+		pivot = ind[k]->fitness;
 		i = lb;
 		j = ub;
 		do
 		{
-			while (mem[i]->fitness < pivot)
+			while (ind[i]->fitness < pivot)
 			{
 				i++;
 			}
-			while (mem[j]->fitness > pivot)
+			while (ind[j]->fitness > pivot)
 			{
 				j--;
 			}
 			if (i <= j)
 			{
-				tmp = mem[i];
-				mem[i] = mem[j];
-				mem[j] = tmp;
+				tmp = ind[i];
+				ind[i] = ind[j];
+				ind[j] = tmp;
 				i++;
 				j--;
 			}
@@ -84,7 +84,7 @@ void Population::sort(int lb, int ub)
 }
 
 // 新しいハーモニーを生成
-void Population::makeHarmony()
+void Population::alternate()
 {
 	int i, j, p1, p2;
 	Individual **tmp;
@@ -94,8 +94,8 @@ void Population::makeHarmony()
 	/*
    denom = 0.0;
    for(i = 0; i < POP_SIZE; i++) {
-      trFit[i] = (mem[POP_SIZE - 1]->fitness - mem[i]->fitness)
-                 / (mem[POP_SIZE - 1]->fitness - mem[0]->fitness);
+      trFit[i] = (ind[POP_SIZE - 1]->fitness - ind[i]->fitness)
+                 / (ind[POP_SIZE - 1]->fitness - ind[0]->fitness);
       denom += trFit[i];
    }
    */
@@ -105,7 +105,7 @@ void Population::makeHarmony()
 	{
 		for (j = 0; j < Individual::solutionLen; j++)
 		{
-			nextMem[i]->solution[j] = mem[i]->solution[j];
+			nextInd[i]->solution[j] = ind[i]->solution[j];
 		}
 	}
 
@@ -114,19 +114,19 @@ void Population::makeHarmony()
 	{
 		p1 = select();
 		p2 = select();
-		nextMem[i]->crossover(mem[p1], mem[p2]);
+		nextInd[i]->crossover(ind[p1], ind[p2]);
 	}
 
 	// 突然変異を起こす
 	for (i = 1; i < HM_SIZE; i++)
 	{
-		nextMem[i]->mutate();
+		nextInd[i]->mutate();
 	}
 
 	// 次世代を現世代に変更する
-	tmp = mem;
-	mem = nextMem;
-	nextMem = tmp; //memとnextMemでいれかえ
+	tmp = ind;
+	ind = nextInd;
+	nextInd = tmp; //memとnextMemでいれかえ
 
 	// 評価する
 	evaluate();
