@@ -1,6 +1,6 @@
 #pragma once
 
-#include "HarmonyMemory.h"
+#include "Population.h"
 
 class Exp
 {
@@ -9,6 +9,6 @@ public:
 	~Exp();
 	void search();
 
-	HarmonyMemory *harmonyMemory;
+	Population *pop;
 	Para *para;
 };

@@ -1,19 +1,19 @@
-#include "HarmonyMemory.h"
+#include "Population.h"
 
-Para *HarmonyMemory::para = NULL;
+Para *Population::para = NULL;
 
 // コンストラクタ
-HarmonyMemory::HarmonyMemory()
+Population::Population()
 {
 	int i;
 	iteNum = 1;
 
-	mem = new Harmony *[HM_SIZE];	  //mem[100]宣言
-	nextMem = new Harmony *[HM_SIZE]; //nextMem[100]宣言
+	mem = new Individual *[HM_SIZE];	 //mem[100]宣言
+	nextMem = new Individual *[HM_SIZE]; //nextMem[100]宣言
 	for (i = 0; i < HM_SIZE; i++)
 	{
-		mem[i] = new Harmony();
-		nextMem[i] = new Harmony();
+		mem[i] = new Individual();
+		nextMem[i] = new Individual();
 		mem[i]->calcFit();
 		nextMem[i]->calcFit();
 	}
@@ -21,7 +21,7 @@ HarmonyMemory::HarmonyMemory()
 }
 
 // デストラクタ
-HarmonyMemory::~HarmonyMemory()
+Population::~Population()
 {
 	int i;
 
@@ -34,7 +34,7 @@ HarmonyMemory::~HarmonyMemory()
 	delete[] nextMem;
 }
 // すべての個体を評価して，適応度順に並び替える
-void HarmonyMemory::evaluate()
+void Population::evaluate()
 {
 	int i;
 
@@ -47,11 +47,11 @@ void HarmonyMemory::evaluate()
 // mem[lb]〜mem[ub]をクイックソートで並び替える
 // lb: 並び替えの対象要素の添え字の下限
 // ub: 並び替えの対象要素の添え字の上限
-void HarmonyMemory::sort(int lb, int ub)
+void Population::sort(int lb, int ub)
 {
 	int i, j, k;
 	double pivot;
-	Harmony *tmp;
+	Individual *tmp;
 
 	if (lb < ub)
 	{
@@ -84,10 +84,10 @@ void HarmonyMemory::sort(int lb, int ub)
 }
 
 // 新しいハーモニーを生成
-void HarmonyMemory::makeHarmony()
+void Population::makeHarmony()
 {
 	int i, j, p1, p2;
-	Harmony **tmp;
+	Individual **tmp;
 	iteNum++;
 
 	// ルーレット選択のための処理
@@ -103,7 +103,7 @@ void HarmonyMemory::makeHarmony()
 	// エリート保存戦略で子個体を作る
 	for (i = 0; i < ELITE; i++)
 	{
-		for (j = 0; j < Harmony::solutionLen; j++)
+		for (j = 0; j < Individual::solutionLen; j++)
 		{
 			nextMem[i]->solution[j] = mem[i]->solution[j];
 		}
@@ -133,7 +133,7 @@ void HarmonyMemory::makeHarmony()
 }
 // 順位に基づくランキング選択で親個体を1つ選択する
 // 戻り値: 選択した親個体の添え字
-int HarmonyMemory::select()
+int Population::select()
 {
 	int num, denom, r;
 

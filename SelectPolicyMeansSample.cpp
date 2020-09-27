@@ -12,6 +12,6 @@ int main()
 
 	exp = new Exp();
 	exp->search();
-	exp->harmonyMemory->mem[0]->writeResult();
+	exp->pop->mem[0]->writeResult();
 	delete exp;
 }

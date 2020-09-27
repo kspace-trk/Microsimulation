@@ -1,15 +1,15 @@
-#include "Harmony.h"
+#include "Individual.h"
 
-Para *Harmony::para = NULL;
-int Harmony::centerZoneNum = -1;
-int Harmony::surroundingZoneNum = -1;
-int Harmony::solutionLen = -1;
-int Harmony::solutionSubLen = -1;
-int Harmony::distanceMax = 0;
-double Harmony::transFitBase = 0.0;
+Para *Individual::para = NULL;
+int Individual::centerZoneNum = -1;
+int Individual::surroundingZoneNum = -1;
+int Individual::solutionLen = -1;
+int Individual::solutionSubLen = -1;
+int Individual::distanceMax = 0;
+double Individual::transFitBase = 0.0;
 
 // コンストラクタ
-Harmony::Harmony()
+Individual::Individual()
 {
 	int i, j;
 	double r;
@@ -45,7 +45,7 @@ Harmony::Harmony()
 }
 
 // デストラクタ
-Harmony::~Harmony()
+Individual::~Individual()
 {
 	for (int i = 0; i < para->zoneVNum; i++)
 	{
@@ -57,7 +57,7 @@ Harmony::~Harmony()
 	delete[] facilityPop;
 }
 // 適応度を算出する
-void Harmony::evaluate()
+void Individual::evaluate()
 {
 	int i;
 
@@ -71,7 +71,7 @@ void Harmony::evaluate()
 // p1とp2から一点交叉で作った子にする
 // p1: 親個体1
 // p2: 親個体2
-void Harmony::crossover(Harmony *p1, Harmony *p2)
+void Individual::crossover(Individual *p1, Individual *p2)
 {
 	int point, i;
 
@@ -86,7 +86,7 @@ void Harmony::crossover(Harmony *p1, Harmony *p2)
 	}
 }
 // 突然変異を起こす
-void Harmony::mutate()
+void Individual::mutate()
 {
 	int i;
 
@@ -100,7 +100,7 @@ void Harmony::mutate()
 }
 
 // 評価
-void Harmony::calcFit()
+void Individual::calcFit()
 {
 	int i, j, k, x, y, neighbour, fromv, fromh, to, tov, toh;
 	double oneDayPop;
@@ -308,7 +308,7 @@ void Harmony::calcFit()
 }
 
 // 結果書込み
-void Harmony::writeResult()
+void Individual::writeResult()
 {
 	int i, j;
 	FILE *resultFP;

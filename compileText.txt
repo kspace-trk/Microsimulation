@@ -1,1 +1,1 @@
-g++ SelectPolicyMeansSample.cpp Exp.cpp Harmony.cpp HarmonyMemory.cpp Para.cpp
+g++ SelectPolicyMeansSample.cpp Exp.cpp Individual.cpp Population.cpp Para.cpp
