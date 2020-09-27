@@ -8,9 +8,9 @@ Population::Population()
 	int i;
 	iteNum = 1;
 
-	ind = new Individual *[HM_SIZE];	 //ind[100]宣言
-	nextInd = new Individual *[HM_SIZE]; //nextInd[100]宣言
-	for (i = 0; i < HM_SIZE; i++)
+	ind = new Individual *[POP_SIZE];	  //ind[100]宣言
+	nextInd = new Individual *[POP_SIZE]; //nextInd[100]宣言
+	for (i = 0; i < POP_SIZE; i++)
 	{
 		ind[i] = new Individual();
 		nextInd[i] = new Individual();
@@ -25,7 +25,7 @@ Population::~Population()
 {
 	int i;
 
-	for (i = 0; i < HM_SIZE; i++)
+	for (i = 0; i < POP_SIZE; i++)
 	{
 		delete ind[i];
 		delete nextInd[i];
@@ -38,11 +38,11 @@ void Population::evaluate()
 {
 	int i;
 
-	for (i = 0; i < HM_SIZE; i++)
+	for (i = 0; i < POP_SIZE; i++)
 	{
 		ind[i]->calcFit();
 	}
-	sort(0, HM_SIZE - 1);
+	sort(0, POP_SIZE - 1);
 }
 // ind[lb]〜ind[ub]をクイックソートで並び替える
 // lb: 並び替えの対象要素の添え字の下限
@@ -83,22 +83,12 @@ void Population::sort(int lb, int ub)
 	}
 }
 
-// 新しいハーモニーを生成
+// 世代交代
 void Population::alternate()
 {
 	int i, j, p1, p2;
 	Individual **tmp;
 	iteNum++;
-
-	// ルーレット選択のための処理
-	/*
-   denom = 0.0;
-   for(i = 0; i < POP_SIZE; i++) {
-      trFit[i] = (ind[POP_SIZE - 1]->fitness - ind[i]->fitness)
-                 / (ind[POP_SIZE - 1]->fitness - ind[0]->fitness);
-      denom += trFit[i];
-   }
-   */
 
 	// エリート保存戦略で子個体を作る
 	for (i = 0; i < ELITE; i++)
@@ -110,7 +100,7 @@ void Population::alternate()
 	}
 
 	// 親を選択し交叉する
-	for (; i < HM_SIZE; i++)
+	for (; i < POP_SIZE; i++)
 	{
 		p1 = select();
 		p2 = select();
@@ -118,7 +108,7 @@ void Population::alternate()
 	}
 
 	// 突然変異を起こす
-	for (i = 1; i < HM_SIZE; i++)
+	for (i = 1; i < POP_SIZE; i++)
 	{
 		nextInd[i]->mutate();
 	}
@@ -137,9 +127,9 @@ int Population::select()
 {
 	int num, denom, r;
 
-	denom = HM_SIZE * (HM_SIZE + 1) / 2; //50万
+	denom = POP_SIZE * (POP_SIZE + 1) / 2; //50万
 	r = ((rand() << 16) + (rand() << 1) + (rand() % 2)) % denom + 1;
-	for (num = HM_SIZE; 0 < num; num--)
+	for (num = POP_SIZE; 0 < num; num--)
 	{
 		if (r <= num)
 		{
@@ -147,5 +137,5 @@ int Population::select()
 		}
 		r -= num;
 	}
-	return HM_SIZE - num;
+	return POP_SIZE - num;
 }

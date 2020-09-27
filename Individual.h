@@ -4,7 +4,7 @@ class Para;
 #include "Para.h"
 
 #define ITERATION_NUM 100
-#define HM_SIZE 100
+#define POP_SIZE 100
 #define R_CONSIDER 0.85
 #define R_ADJUST 0.35
 #define ELITE 1 // エリート保存戦略で残す個体の数
