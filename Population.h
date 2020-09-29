@@ -18,7 +18,7 @@ public:
 private:
 	Individual *newHarmony;
 	Individual **nextInd;
-	int select();			   // è¦ªå€‹ä½“ã‚’é¸æŠã™ã‚‹
-	void evaluate();		   // å€‹ä½“ã‚’è©•ä¾¡ã™ã‚‹
-	void sort(int lb, int ub); // å€‹ä½“ã‚’è‰¯ã„é †ã«ä¸¦ã³æ›¿ãˆã‚‹
+	int select();			   // eŒÂ‘Ì‚ğ‘I‘ğ‚·‚é
+	void evaluate();		   // ŒÂ‘Ì‚ğ•]‰¿‚·‚é
+	void sort(int lb, int ub); // ŒÂ‘Ì‚ğ—Ç‚¢‡‚É•À‚Ñ‘Ö‚¦‚é
 };

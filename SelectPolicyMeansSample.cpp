@@ -1,4 +1,4 @@
-// SelectPolicyMeansSample.cpp : ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã«ã¯ 'main' é–¢æ•°ãŒå«ã¾ã‚Œã¦ã„ã¾ã™ã€‚ãƒ—ãƒ­ã‚°ãƒ©ãƒ å®Ÿè¡Œã®é–‹å§‹ã¨çµ‚äº†ãŒãã“ã§è¡Œã‚ã‚Œã¾ã™ã€‚
+// SelectPolicyMeansSample.cpp : ‚±‚Ìƒtƒ@ƒCƒ‹‚É‚Í 'main' ŠÖ”‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚·BƒvƒƒOƒ‰ƒ€Às‚ÌŠJn‚ÆI—¹‚ª‚»‚±‚Ås‚í‚ê‚Ü‚·B
 //
 #include "Exp.h"
 
@@ -7,27 +7,32 @@ int main()
 	Exp *exp;
 	Population *pop;
 	int n;
+	double e = 0;//•]‰¿’l
 	long cpu_time;
 	double sec;
-	// ä¹±æ•°ã®ã‚¿ãƒè¨­å®š
+	// —”‚Ìƒ^ƒlİ’è
 	srand((unsigned int)time(NULL));
 
 	double geneAve[100];
 	double ave = 0;
 
+	printf("ŠJn\n");
+
 	exp = new Exp();
-	// for (n = 0; n < 50; n++)
+	// for (n = 0; n < 10; n++)
 	// {
 	exp->search();
-	// 	ave += exp->pop->ind[0]->fitness;
-	// 	printf("ç¬¬%dä¸–ä»£ï¼šfitness=%f\n", exp->pop->iteNum, exp->pop->ind[0]->fitness);
-	// 	printf("-----------------\n");
-	// }
-	// ave /= n;
-	printf("ä¸–ä»£äº¤ä»£æ•°ï¼š%dã€€å€‹ä½“ç¾¤æ•°ï¼š%dã€€\n", ITERATION_NUM, POP_SIZE);
+	 //		ave += exp->pop->ind[0]->fitness;
+	 //		printf("-----------------\n");
+	//	 }
+	 //ave /= n;
+	printf("¢‘ãŒğ‘ã”F%d@ŒÂ‘ÌŒQ”F%d \n", ITERATION_NUM, POP_SIZE);
+	printf("‘æ%d¢‘ãFfitness=%f\n", exp->pop->iteNum, exp->pop->ind[0]->fitness);
 	cpu_time = clock();
 	sec = (double)cpu_time / CLOCKS_PER_SEC;
-	printf("å‡¦ç†æ™‚é–“: %fç§’\n", sec);
+	e = sqrt(pow(exp->pop->ind[0]->fitness / 100, 2.0) + pow(sec / 70, 2.0));
+	printf("ˆ—ŠÔ: %f•b\n", sec);
+	printf("•]‰¿’lF%f\n", e);
 	exp->pop->ind[0]->writeResult();
 	delete exp;
 }

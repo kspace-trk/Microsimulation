@@ -1,6 +1,6 @@
 #include "Para.h"
 
-// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 Para::Para()
 {
 	char *pos1, *pos2;
@@ -8,7 +8,7 @@ Para::Para()
 	int paraValue;
 	FILE *paraFP;
 
-	// èª­è¾¼ã¿ã‚¨ãƒ©ãƒ¼ç™ºè¦‹ã®ãŸã‚ã®åˆæœŸåŒ–
+	// “Ç‚İƒGƒ‰[”­Œ©‚Ì‚½‚ß‚Ì‰Šú‰»
 	zoneHNum = -1;
 	zoneVNum = -1;
 	centerZoneHID1 = -1;
@@ -82,7 +82,7 @@ Para::Para()
 	fclose(paraFP);
 }
 
-// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+// ƒfƒXƒgƒ‰ƒNƒ^
 Para::~Para()
 {
 }

@@ -1,9 +1,9 @@
 #include "Exp.h"
 
-// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 Exp::Exp()
 {
-	// ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿è¨­å®š
+	// ƒpƒ‰ƒ[ƒ^İ’è
 	pop = NULL;
 	para = new Para();
 	Individual::para = para;
@@ -16,7 +16,7 @@ Exp::Exp()
 	Individual::transFitBase = (double)para->transCostUnit * para->transTimeUnit * para->receiveRatio * 0.73;
 }
 
-// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+// ƒfƒXƒgƒ‰ƒNƒ^
 Exp::~Exp()
 {
 	if (pop)
@@ -24,13 +24,13 @@ Exp::~Exp()
 	delete para;
 }
 
-// è§£æ¢ç´¢
+// ‰ğ’Tõ
 void Exp::search()
 {
 	pop = new Population();
 	while (pop->iteNum < ITERATION_NUM)
 	{
 		pop->alternate();
-		printf("ç¬¬%dä¸–ä»£ï¼šfitness=%f\n", pop->iteNum, pop->ind[0]->fitness);
+		printf("‘æ%d¢‘ãFfitness=%f\n", pop->iteNum, pop->ind[0]->fitness);
 	}
 }

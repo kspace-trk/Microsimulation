@@ -8,35 +8,35 @@ int Individual::solutionSubLen = -1;
 int Individual::distanceMax = 0;
 double Individual::transFitBase = 0.0;
 
-// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 Individual::Individual()
 {
 	int i, j;
 	double r;
 
-	solution = new int[solutionLen];			//solutionã®é…åˆ—æ•°å®£è¨€
-	housePop = new int *[para->zoneVNum];		//housePopã®é…åˆ—æ•°å®£è¨€
-	facilityPop = new double *[para->zoneVNum]; //facilityPopã®é…åˆ—æ•°ã®å®£è¨€
+	solution = new int[solutionLen];			//solution‚Ì”z—ñ”éŒ¾
+	housePop = new int *[para->zoneVNum];		//housePop‚Ì”z—ñ”éŒ¾
+	facilityPop = new double *[para->zoneVNum]; //facilityPop‚Ì”z—ñ”‚ÌéŒ¾
 	for (i = 0; i < solutionLen; i++)
-		solution[i] = -1; //ä¸­ã«å…¨éƒ¨-1ã‚’å…¥ã‚Œã‚‹
+		solution[i] = -1; //’†‚É‘S•”-1‚ğ“ü‚ê‚é
 
 	for (i = 0; i < para->zoneVNum; i++)
 	{
-		housePop[i] = new int[para->zoneHNum];		 //housePopé…åˆ—ã‚’2æ¬¡å…ƒé…åˆ—ã«ã—ã¦ã‚‹
-		facilityPop[i] = new double[para->zoneHNum]; //facilityPopé…åˆ—ã‚’2æ¬¡å…ƒé…åˆ—ã«ã—ã¦ã‚‹
-		for (j = 0; j < para->zoneHNum; j++)		 //9å›å›ã‚‹
+		housePop[i] = new int[para->zoneHNum];		 //housePop”z—ñ‚ğ2ŸŒ³”z—ñ‚É‚µ‚Ä‚é
+		facilityPop[i] = new double[para->zoneHNum]; //facilityPop”z—ñ‚ğ2ŸŒ³”z—ñ‚É‚µ‚Ä‚é
+		for (j = 0; j < para->zoneHNum; j++)		 //9‰ñ‰ñ‚é
 		{
-			r = (double)rand() / RAND_MAX; //0~1ã¾ã§ã®å°‘æ•°å‹ã®ä¹±æ•°
+			r = (double)rand() / RAND_MAX; //0~1‚Ü‚Å‚Ì­”Œ^‚Ì—”
 			if (r > 0.1)
-				solution[i * para->zoneHNum + j] = 0; //90%ã§0ã‚’ä»£å…¥
+				solution[i * para->zoneHNum + j] = 0; //90%‚Å0‚ğ‘ã“ü
 			else
-				solution[i * para->zoneHNum + j] = 1; //10%ã§1ã‚’ä»£å…¥
-			housePop[i][j] = para->initialZonePopNum; //housePop[0~9][0~9]ã®å…¨éƒ¨ã«20(åˆæœŸã‚¾ãƒ¼ãƒ³äººå£)ã‚’ä»£å…¥
-			facilityPop[i][j] = 0.0;				  //facilityPop[0~9][0~9]ã®å…¨éƒ¨ã«0.0ã‚’ä»£å…¥
+				solution[i * para->zoneHNum + j] = 1; //10%‚Å1‚ğ‘ã“ü
+			housePop[i][j] = para->initialZonePopNum; //housePop[0~9][0~9]‚Ì‘S•”‚É20(‰Šúƒ][ƒ“lŒû)‚ğ‘ã“ü
+			facilityPop[i][j] = 0.0;				  //facilityPop[0~9][0~9]‚Ì‘S•”‚É0.0‚ğ‘ã“ü
 		}
 	}
 	for (i = 0; i < solutionSubLen; i++)
-		solution[solutionLen - solutionSubLen + i] = rand() % 2; //solution[82~86]ã« 0or1
+		solution[solutionLen - solutionSubLen + i] = rand() % 2; //solution[82~86]‚É 0or1
 	subsidy = 0.0;
 	moveNum = 0;
 	facilityNum = 0;
@@ -44,7 +44,7 @@ Individual::Individual()
 	fitness = 0.0;
 }
 
-// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+// ƒfƒXƒgƒ‰ƒNƒ^
 Individual::~Individual()
 {
 	for (int i = 0; i < para->zoneVNum; i++)
@@ -56,21 +56,9 @@ Individual::~Individual()
 	delete[] housePop;
 	delete[] facilityPop;
 }
-// é©å¿œåº¦ã‚’ç®—å‡ºã™ã‚‹
-void Individual::evaluate()
-{
-	int i;
-
-	fitness = 0.0; //é©å¿œåº¦(ã‚½ãƒ¼ãƒˆåŸºæº–ã«ãªã‚‹)
-	for (i = 0; i < solutionLen; i++)
-	{
-		fitness += (solution[i] * 2 - 1) * sqrt((double)i + 1);
-	}
-	fitness = fabs(fitness);
-}
-// p1ã¨p2ã‹ã‚‰ä¸€ç‚¹äº¤å‰ã§ä½œã£ãŸå­ã«ã™ã‚‹
-// p1: è¦ªå€‹ä½“1
-// p2: è¦ªå€‹ä½“2
+// p1‚Æp2‚©‚çˆê“_Œğ³‚Åì‚Á‚½q‚É‚·‚é
+// p1: eŒÂ‘Ì1
+// p2: eŒÂ‘Ì2
 void Individual::crossover(Individual *p1, Individual *p2)
 {
 	int point, i;
@@ -85,7 +73,7 @@ void Individual::crossover(Individual *p1, Individual *p2)
 		solution[i] = p2->solution[i];
 	}
 }
-// çªç„¶å¤‰ç•°ã‚’èµ·ã“ã™
+// “Ë‘R•ÏˆÙ‚ğ‹N‚±‚·
 void Individual::mutate()
 {
 	int i;
@@ -99,13 +87,13 @@ void Individual::mutate()
 	}
 }
 
-// è©•ä¾¡
+// •]‰¿
 void Individual::calcFit()
 {
 	int i, j, k, x, y, neighbour, fromv, fromh, to, tov, toh;
 	double oneDayPop;
 
-	// æ–½è¨­æ•°ã®ç®—å‡ºï¼ŒfacilityPopã¨housePopã®åˆæœŸåŒ–
+	// {İ”‚ÌZoCfacilityPop‚ÆhousePop‚Ì‰Šú‰»
 	facilityNum = 0;
 	for (i = 0; i < para->zoneVNum; i++)
 	{
@@ -117,7 +105,7 @@ void Individual::calcFit()
 		}
 	}
 
-	// è£œåŠ©é‡‘ã®ç®—å‡º
+	// •â•‹à‚ÌZo
 	subsidy = 0.0;
 	for (i = 0; i < solutionSubLen; i++)
 		subsidy += pow(2, i) * solution[solutionLen - solutionSubLen + i];
@@ -125,10 +113,10 @@ void Individual::calcFit()
 		subsidy = para->subsidyLevelNum;
 	subsidy = subsidy / (double)para->subsidyLevelNum * para->subsidyMax;
 
-	// ç§»è»¢ç‡ã®ç®—å‡º
+	// ˆÚ“]—¦‚ÌZo
 	moveProb = 1 / (1 + exp(-0.25 * subsidy + 10));
 
-	// å±…ä½è€…æ•°ã®ç®—å‡º(ãƒã‚¤ã‚¯ãƒ­ã‚·ãƒŸãƒ¥ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³)
+	// ‹ZÒ”‚ÌZo(ƒ}ƒCƒNƒƒVƒ~ƒ…ƒŒ[ƒVƒ‡ƒ“)
 	moveNum = 0;
 	for (fromv = 0; fromv < para->centerZoneVID1; fromv++)
 	{
@@ -200,10 +188,10 @@ void Individual::calcFit()
 		}
 	}
 
-	// ä»‹è­·ç¦ç¥‰æ–½è¨­æ–°è¨­ãƒ»ç¶­æŒç®¡ç†è²»ç”¨ï¼‹ç§»è»¢è£œåŠ©è²»ç”¨
+	// ‰îŒì•Ÿƒ{İVİEˆÛŠÇ—”ï—p{ˆÚ“]•â•”ï—p
 	fitness = (double)para->runningCost * (double)facilityNum + subsidy * moveNum;
 
-	// ç§»é€ã‚µãƒ¼ãƒ“ã‚¹è²»ç”¨
+	// ˆÚ‘—ƒT[ƒrƒX”ï—p
 	for (y = 0; y < para->zoneVNum; y++)
 	{
 		for (x = 0; x < para->zoneHNum; x++)
@@ -307,20 +295,20 @@ void Individual::calcFit()
 	}
 }
 
-// çµæœæ›¸è¾¼ã¿
+// Œ‹‰Ê‘‚İ
 void Individual::writeResult()
 {
 	int i, j;
 	FILE *resultFP;
 
-	// ãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ¼ãƒ—ãƒ³
+	// ƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
 	if ((resultFP = fopen("result.csv", "w")) == NULL)
 	{
 		printf("Cannot open result.txt for output.\n");
 		exit(1);
 	}
 
-	// æ›¸è¾¼ã¿
+	// ‘‚İ
 	fprintf(resultFP, "%f\n", subsidy);
 	for (j = 0; j < para->zoneVNum; j++)
 	{
@@ -329,6 +317,6 @@ void Individual::writeResult()
 		fprintf(resultFP, "\n");
 	}
 
-	// ãƒ•ã‚¡ã‚¤ãƒ«ã‚¯ãƒ­ãƒ¼ã‚º
+	// ƒtƒ@ƒCƒ‹ƒNƒ[ƒY
 	fclose(resultFP);
 }

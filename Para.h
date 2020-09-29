@@ -13,19 +13,19 @@ public:
 	Para();
 	~Para();
 
-	int zoneHNum;		   // æ¨ªæ–¹å‘ã‚¾ãƒ¼ãƒ³æ•°
-	int zoneVNum;		   // ç¸¦æ–¹å‘ã‚¾ãƒ¼ãƒ³æ•°
-	int centerZoneHID1;	   // éƒ½å¿ƒã‚¾ãƒ¼ãƒ³æ¨ªæ–¹å‘é–‹å§‹ID
-	int centerZoneHID2;	   // éƒ½å¿ƒã‚¾ãƒ¼ãƒ³æ¨ªæ–¹å‘çµ‚äº†ID
-	int centerZoneVID1;	   // éƒ½å¿ƒã‚¾ãƒ¼ãƒ³ç¸¦æ–¹å‘é–‹å§‹ID
-	int centerZoneVID2;	   // éƒ½å¿ƒã‚¾ãƒ¼ãƒ³ç¸¦æ–¹å‘çµ‚äº†ID
-	int initialZonePopNum; // åˆæœŸã‚¾ãƒ¼ãƒ³äººå£(äºº)
-	int transTimeUnit;	   // éš£æ¥ã‚¾ãƒ¼ãƒ³ã¸ã®ç§»å‹•æ™‚é–“(åˆ†)
-	int transTimeLimit;	   // ç§»é€æ™‚é–“ä¸Šé™(åˆ†)
-	int facilityCapacity;  // 1æ–½è¨­ã®å—å…¥äººæ•°ä¸Šé™(äºº)
-	int runningCost;	   // æ–½è¨­ã®æ–°è¨­è²»ï¼‹10å¹´é–“ã®ç¶­æŒç®¡ç†è²»(ä¸‡å††)
-	int subsidyMax;		   // 1äººã‚ãŸã‚Šã®ç§»è»¢è£œåŠ©é‡‘ã®ä¸Šé™å€¤(ä¸‡å††)
-	int transCostUnit;	   // 1äºº1åˆ†ã‚ãŸã‚Šã®ç§»é€ã‚µãƒ¼ãƒ“ã‚¹è²»(å††)
-	int subsidyLevelNum;   // ç§»è»¢è£œåŠ©é‡‘ã®æ®µéšæ•°ï¼ˆ20ã®ã¨ãã¯1/20åˆ»ã¿ï¼‰
-	double receiveRatio;   // ä»‹è­·ç¦ç¥‰ã‚µãƒ¼ãƒ“ã‚¹å—çµ¦ç‡
+	int zoneHNum;		   // ‰¡•ûŒüƒ][ƒ“”
+	int zoneVNum;		   // c•ûŒüƒ][ƒ“”
+	int centerZoneHID1;	   // “sSƒ][ƒ“‰¡•ûŒüŠJnID
+	int centerZoneHID2;	   // “sSƒ][ƒ“‰¡•ûŒüI—¹ID
+	int centerZoneVID1;	   // “sSƒ][ƒ“c•ûŒüŠJnID
+	int centerZoneVID2;	   // “sSƒ][ƒ“c•ûŒüI—¹ID
+	int initialZonePopNum; // ‰Šúƒ][ƒ“lŒû(l)
+	int transTimeUnit;	   // —×Úƒ][ƒ“‚Ö‚ÌˆÚ“®ŠÔ(•ª)
+	int transTimeLimit;	   // ˆÚ‘—ŠÔãŒÀ(•ª)
+	int facilityCapacity;  // 1{İ‚Ìó“ül”ãŒÀ(l)
+	int runningCost;	   // {İ‚ÌVİ”ï{10”NŠÔ‚ÌˆÛŠÇ—”ï(–œ‰~)
+	int subsidyMax;		   // 1l‚ ‚½‚è‚ÌˆÚ“]•â•‹à‚ÌãŒÀ’l(–œ‰~)
+	int transCostUnit;	   // 1l1•ª‚ ‚½‚è‚ÌˆÚ‘—ƒT[ƒrƒX”ï(‰~)
+	int subsidyLevelNum;   // ˆÚ“]•â•‹à‚Ì’iŠK”i20‚Ì‚Æ‚«‚Í1/20‚İj
+	double receiveRatio;   // ‰îŒì•ŸƒƒT[ƒrƒXó‹‹—¦
 };

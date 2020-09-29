@@ -1,15 +1,15 @@
-zoneHNum,9,æ¨ªæ–¹å‘ã‚¾ãƒ¼ãƒ³æ•°
-zoneVNum,9,ç¸¦æ–¹å‘ã‚¾ãƒ¼ãƒ³æ•°
-centerZoneHID1,3,éƒ½å¿ƒã‚¾ãƒ¼ãƒ³æ¨ªæ–¹å‘é–‹å§‹ID
-centerZoneHID2,5,éƒ½å¿ƒã‚¾ãƒ¼ãƒ³æ¨ªæ–¹å‘çµ‚äº†ID
-centerZoneVID1,3,éƒ½å¿ƒã‚¾ãƒ¼ãƒ³ç¸¦æ–¹å‘é–‹å§‹ID
-centerZoneVID2,5,éƒ½å¿ƒã‚¾ãƒ¼ãƒ³ç¸¦æ–¹å‘çµ‚äº†ID
-initialZonePopNum,20,åˆæœŸã‚¾ãƒ¼ãƒ³äººå£(äºº)
-transTimeUnit,10,éš£æ¥ã‚¾ãƒ¼ãƒ³ã¸ã®ç§»å‹•æ™‚é–“(åˆ†)
-transTimeLimit,70,ç§»é€æ™‚é–“ä¸Šé™(åˆ†)
-facilityCapacity,40,1æ–½è¨­ã®å—å…¥äººæ•°ä¸Šé™(äºº)
-runningCost,30000,æ–½è¨­ã®æ–°è¨­è²»ï¼‹10å¹´é–“ã®ç¶­æŒç®¡ç†è²»(ä¸‡å††)
-subsidyMax,100,1äººã‚ãŸã‚Šã®ç§»è»¢è£œåŠ©é‡‘ã®ä¸Šé™å€¤(ä¸‡å††)
-transCostUnit,150,1äºº1åˆ†ã‚ãŸã‚Šã®ç§»é€ã‚µãƒ¼ãƒ“ã‚¹è²»(å††)
-subsidyLevelNum,20,ç§»è»¢è£œåŠ©é‡‘ã®æ®µéšæ•°
-receiveRatio,0.1,ä»‹è­·ç¦ç¥‰ã‚µãƒ¼ãƒ“ã‚¹å—çµ¦ç‡
+zoneHNum,9,‰¡•ûŒüƒ][ƒ“”
+zoneVNum,9,c•ûŒüƒ][ƒ“”
+centerZoneHID1,3,“sSƒ][ƒ“‰¡•ûŒüŠJnID
+centerZoneHID2,5,“sSƒ][ƒ“‰¡•ûŒüI—¹ID
+centerZoneVID1,3,“sSƒ][ƒ“c•ûŒüŠJnID
+centerZoneVID2,5,“sSƒ][ƒ“c•ûŒüI—¹ID
+initialZonePopNum,20,‰Šúƒ][ƒ“lŒû(l)
+transTimeUnit,10,—×Úƒ][ƒ“‚Ö‚ÌˆÚ“®ŠÔ(•ª)
+transTimeLimit,70,ˆÚ‘—ŠÔãŒÀ(•ª)
+facilityCapacity,40,1{İ‚Ìó“ül”ãŒÀ(l)
+runningCost,30000,{İ‚ÌVİ”ï{10”NŠÔ‚ÌˆÛŠÇ—”ï(–œ‰~)
+subsidyMax,100,1l‚ ‚½‚è‚ÌˆÚ“]•â•‹à‚ÌãŒÀ’l(–œ‰~)
+transCostUnit,150,1l1•ª‚ ‚½‚è‚ÌˆÚ‘—ƒT[ƒrƒX”ï(‰~)
+subsidyLevelNum,20,ˆÚ“]•â•‹à‚Ì’iŠK”
+receiveRatio,0.1,‰îŒì•ŸƒƒT[ƒrƒXó‹‹—¦
