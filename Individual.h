@@ -3,11 +3,9 @@
 class Para;
 #include "Para.h"
 
-#define ITERATION_NUM 100
-#define POP_SIZE 100
-#define R_CONSIDER 0.85
-#define R_ADJUST 0.35
-#define ELITE 1 // エリート保存戦略で残す個体の数
+#define ITERATION_NUM 5 //世代交代数
+#define POP_SIZE 40000	//個体群数
+#define ELITE 1			// エリート保存戦略で残す個体の数
 // 0以上1以下の実数乱数
 #define RAND_01 ((double)rand() / RAND_MAX)
 #define MUTATE_PROB 0.01 // 突然変異確率

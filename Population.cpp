@@ -6,7 +6,7 @@ Para *Population::para = NULL;
 Population::Population()
 {
 	int i;
-	iteNum = 1;
+	iteNum = 0;
 
 	ind = new Individual *[POP_SIZE];	  //ind[100]宣言
 	nextInd = new Individual *[POP_SIZE]; //nextInd[100]宣言
