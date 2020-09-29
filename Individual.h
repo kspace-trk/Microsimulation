@@ -7,10 +7,10 @@ class Para;
 #define POP_SIZE 100
 #define R_CONSIDER 0.85
 #define R_ADJUST 0.35
-#define ELITE 1 // ã‚¨ãƒªãƒ¼ãƒˆä¿å­˜æˆ¦ç•¥ã§æ®‹ã™å€‹ä½“ã®æ•°
-// 0ä»¥ä¸Š1ä»¥ä¸‹ã®å®Ÿæ•°ä¹±æ•°
+#define ELITE 1 // ƒGƒŠ[ƒg•Û‘¶í—ª‚Åc‚·ŒÂ‘Ì‚Ì”
+// 0ˆÈã1ˆÈ‰º‚ÌÀ”—”
 #define RAND_01 ((double)rand() / RAND_MAX)
-#define MUTATE_PROB 0.01 // çªç„¶å¤‰ç•°ç¢ºç‡
+#define MUTATE_PROB 0.01 // “Ë‘R•ÏˆÙŠm—¦
 
 class Individual
 {
@@ -28,9 +28,9 @@ public:
 
 	void calcFit();
 	void writeResult();
-	void crossover(Individual *p1, Individual *p2); // äº¤å‰ã«ã‚ˆã‚‹å­ã«ã™ã‚‹
-	void mutate();									// çªç„¶å¤‰ç•°ã‚’èµ·ã“ã™
-	void evaluate();								// é©å¿œåº¦ã‚’ç®—å‡ºã™ã‚‹
+	void crossover(Individual *p1, Individual *p2); // Œğ³‚É‚æ‚éq‚É‚·‚é
+	void mutate();									// “Ë‘R•ÏˆÙ‚ğ‹N‚±‚·
+	void evaluate();								// “K‰“x‚ğZo‚·‚é
 	int *solution;
 	int **housePop;
 	double **facilityPop;

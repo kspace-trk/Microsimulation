@@ -1,1 +1,0 @@
-g++ SelectPolicyMeansSample.cpp Exp.cpp Individual.cpp Population.cpp Para.cpp

@@ -2,14 +2,14 @@
 
 Para *Population::para = NULL;
 
-// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 Population::Population()
 {
 	int i;
 	iteNum = 1;
 
-	ind = new Individual *[POP_SIZE];	  //ind[100]å®£è¨€
-	nextInd = new Individual *[POP_SIZE]; //nextInd[100]å®£è¨€
+	ind = new Individual *[POP_SIZE];	  //ind[100]éŒ¾
+	nextInd = new Individual *[POP_SIZE]; //nextInd[100]éŒ¾
 	for (i = 0; i < POP_SIZE; i++)
 	{
 		ind[i] = new Individual();
@@ -17,10 +17,10 @@ Population::Population()
 		ind[i]->calcFit();
 		nextInd[i]->calcFit();
 	}
-	evaluate(); // é©å¿œåº¦ã‚’ç®—å‡ºã™ã‚‹
+	evaluate(); // “K‰“x‚ğZo‚·‚é
 }
 
-// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+// ƒfƒXƒgƒ‰ƒNƒ^
 Population::~Population()
 {
 	int i;
@@ -33,7 +33,7 @@ Population::~Population()
 	delete[] ind;
 	delete[] nextInd;
 }
-// ã™ã¹ã¦ã®å€‹ä½“ã‚’è©•ä¾¡ã—ã¦ï¼Œé©å¿œåº¦é †ã«ä¸¦ã³æ›¿ãˆã‚‹
+// ‚·‚×‚Ä‚ÌŒÂ‘Ì‚ğ•]‰¿‚µ‚ÄC“K‰“x‡‚É•À‚Ñ‘Ö‚¦‚é
 void Population::evaluate()
 {
 	int i;
@@ -44,9 +44,9 @@ void Population::evaluate()
 	}
 	sort(0, POP_SIZE - 1);
 }
-// ind[lb]ã€œind[ub]ã‚’ã‚¯ã‚¤ãƒƒã‚¯ã‚½ãƒ¼ãƒˆã§ä¸¦ã³æ›¿ãˆã‚‹
-// lb: ä¸¦ã³æ›¿ãˆã®å¯¾è±¡è¦ç´ ã®æ·»ãˆå­—ã®ä¸‹é™
-// ub: ä¸¦ã³æ›¿ãˆã®å¯¾è±¡è¦ç´ ã®æ·»ãˆå­—ã®ä¸Šé™
+// ind[lb]`ind[ub]‚ğƒNƒCƒbƒNƒ\[ƒg‚Å•À‚Ñ‘Ö‚¦‚é
+// lb: •À‚Ñ‘Ö‚¦‚Ì‘ÎÛ—v‘f‚Ì“Y‚¦š‚Ì‰ºŒÀ
+// ub: •À‚Ñ‘Ö‚¦‚Ì‘ÎÛ—v‘f‚Ì“Y‚¦š‚ÌãŒÀ
 void Population::sort(int lb, int ub)
 {
 	int i, j, k;
@@ -83,14 +83,14 @@ void Population::sort(int lb, int ub)
 	}
 }
 
-// ä¸–ä»£äº¤ä»£
+// ¢‘ãŒğ‘ã
 void Population::alternate()
 {
 	int i, j, p1, p2;
 	Individual **tmp;
 	iteNum++;
 
-	// ã‚¨ãƒªãƒ¼ãƒˆä¿å­˜æˆ¦ç•¥ã§å­å€‹ä½“ã‚’ä½œã‚‹
+	// ƒGƒŠ[ƒg•Û‘¶í—ª‚ÅqŒÂ‘Ì‚ğì‚é
 	for (i = 0; i < ELITE; i++)
 	{
 		for (j = 0; j < Individual::solutionLen; j++)
@@ -99,7 +99,7 @@ void Population::alternate()
 		}
 	}
 
-	// è¦ªã‚’é¸æŠã—äº¤å‰ã™ã‚‹
+	// e‚ğ‘I‘ğ‚µŒğ³‚·‚é
 	for (; i < POP_SIZE; i++)
 	{
 		p1 = select();
@@ -107,27 +107,27 @@ void Population::alternate()
 		nextInd[i]->crossover(ind[p1], ind[p2]);
 	}
 
-	// çªç„¶å¤‰ç•°ã‚’èµ·ã“ã™
+	// “Ë‘R•ÏˆÙ‚ğ‹N‚±‚·
 	for (i = 1; i < POP_SIZE; i++)
 	{
 		nextInd[i]->mutate();
 	}
 
-	// æ¬¡ä¸–ä»£ã‚’ç¾ä¸–ä»£ã«å¤‰æ›´ã™ã‚‹
+	// Ÿ¢‘ã‚ğŒ»¢‘ã‚É•ÏX‚·‚é
 	tmp = ind;
 	ind = nextInd;
-	nextInd = tmp; //memã¨nextMemã§ã„ã‚Œã‹ãˆ
+	nextInd = tmp; //mem‚ÆnextMem‚Å‚¢‚ê‚©‚¦
 
-	// è©•ä¾¡ã™ã‚‹
+	// •]‰¿‚·‚é
 	evaluate();
 }
-// é †ä½ã«åŸºã¥ããƒ©ãƒ³ã‚­ãƒ³ã‚°é¸æŠã§è¦ªå€‹ä½“ã‚’1ã¤é¸æŠã™ã‚‹
-// æˆ»ã‚Šå€¤: é¸æŠã—ãŸè¦ªå€‹ä½“ã®æ·»ãˆå­—
+// ‡ˆÊ‚ÉŠî‚Ã‚­ƒ‰ƒ“ƒLƒ“ƒO‘I‘ğ‚ÅeŒÂ‘Ì‚ğ1‚Â‘I‘ğ‚·‚é
+// –ß‚è’l: ‘I‘ğ‚µ‚½eŒÂ‘Ì‚Ì“Y‚¦š
 int Population::select()
 {
 	int num, denom, r;
 
-	denom = POP_SIZE * (POP_SIZE + 1) / 2; //50ä¸‡
+	denom = POP_SIZE * (POP_SIZE + 1) / 2; //50–œ
 	r = ((rand() << 16) + (rand() << 1) + (rand() % 2)) % denom + 1;
 	for (num = POP_SIZE; 0 < num; num--)
 	{

@@ -1,4 +1,4 @@
-// SelectPolicyMeansSample.cpp : ã“ã®ãƒ•ã‚¡ã‚¤ãƒ«ã«ã¯ 'main' é–¢æ•°ãŒå«ã¾ã‚Œã¦ã„ã¾ã™ã€‚ãƒ—ãƒ­ã‚°ãƒ©ãƒ å®Ÿè¡Œã®é–‹å§‹ã¨çµ‚äº†ãŒãã“ã§è¡Œã‚ã‚Œã¾ã™ã€‚
+// SelectPolicyMeansSample.cpp : ‚±‚Ìƒtƒ@ƒCƒ‹‚É‚Í 'main' ŠÖ”‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚·BƒvƒƒOƒ‰ƒ€Às‚ÌŠJn‚ÆI—¹‚ª‚»‚±‚Ås‚í‚ê‚Ü‚·B
 //
 #include "Exp.h"
 
@@ -6,7 +6,7 @@ int main()
 {
 	Exp *exp;
 
-	// ä¹±æ•°ã®ã‚¿ãƒè¨­å®š
+	// —”‚Ìƒ^ƒlİ’è
 	srand((unsigned int)time(NULL));
 
 	exp = new Exp();
